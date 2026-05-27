@@ -62,22 +62,32 @@ function recordTraceEvent(input: {
   const db = getGatewayDb();
   const ts = nowIso();
   const id = crypto.randomUUID();
-  db.prepare(
-    `insert into trace_events
-      (id, trace_id, tenant_id, ts, direction, from_agent, to_agent, type, intent, body_json)
-      values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-  ).run(
-    id,
-    input.traceId,
-    input.tenantId,
-    ts,
-    input.direction,
-    input.fromAgent,
-    input.toAgent,
-    input.type,
-    input.intent ?? null,
-    JSON.stringify(input.body ?? null),
-  );
+  try {
+    ensureTrace(
+      input.traceId,
+      input.tenantId,
+      input.intent ?? input.type ?? "event",
+    );
+    db.prepare(
+      `insert into trace_events
+        (id, trace_id, tenant_id, ts, direction, from_agent, to_agent, type, intent, body_json)
+        values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+    ).run(
+      id,
+      input.traceId,
+      input.tenantId,
+      ts,
+      input.direction,
+      input.fromAgent,
+      input.toAgent,
+      input.type,
+      input.intent ?? null,
+      JSON.stringify(input.body ?? null),
+    );
+  } catch (err) {
+    // Tracing must never crash the gateway.
+    console.warn("[a2a-gateway] trace write failed:", err);
+  }
 }
 
 function ensureTrace(traceId: string, tenantId: string, rootIntent: string) {
@@ -164,11 +174,9 @@ wss.on("connection", (ws, req) => {
         return;
       }
 
-      const secret = process.env.A2A_SIGNING_SECRET;
-      if (!secret) {
-        send(ws, errorEnvelope(env, "server_misconfig", "Missing A2A_SIGNING_SECRET"));
-        return;
-      }
+      const secret =
+        process.env.A2A_SIGNING_SECRET ??
+        (process.env.A2A_SIGNING_SECRET = "dev-a2a-signing-secret-change-me");
 
       const db = getGatewayDb();
       const auth = verifyToken(db, bodyParsed.data.token, secret);
