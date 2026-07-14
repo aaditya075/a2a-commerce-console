@@ -30,6 +30,11 @@ yarn-error.log*
 
 # env files
 .env*.local
+.env
+
+# runtime
+.data/
+.cursor/
 
 # typescript
 *.tsbuildinfo

@@ -2,6 +2,7 @@ import { agentCatalog } from "@/lib/mock-data";
 import type { AgentSku } from "@/lib/types";
 import { getDb } from "@/server/db";
 import { randomId, sha256Base64Url, signHmacSha256Base64Url } from "@/server/crypto";
+import { seedCatalogIfEmpty } from "@/server/catalog";
 
 export type FleetAgentRow = {
   id: string;
@@ -58,6 +59,8 @@ export function ensureDefaultTenant() {
     skuInsert.run(sku.id, sku.name, sku.category, sku.priceMonthlyUsd, now);
   }
 
+  seedCatalogIfEmpty();
+
   return { tenantId: DEFAULT_TENANT_ID };
 }
 
@@ -84,7 +87,12 @@ export function provisionFleet(input: {
     for (let i = 0; i < item.qty; i++) {
       const id = randomId("ag");
       const displayName = `${item.skuId} · ${String(i + 1).padStart(2, "0")}`;
-      const provider = item.skuId === "sku-router" ? "router" : "anthropic";
+      const provider =
+        item.skuId === "sku-brand"
+          ? "anthropic"
+          : item.skuId === "sku-router"
+            ? "router"
+            : "openai";
       const status = "standby";
       insert.run(id, input.tenantId, item.skuId, displayName, provider, status, null, now);
       created.push({

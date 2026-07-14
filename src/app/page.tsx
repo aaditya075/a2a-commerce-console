@@ -1,32 +1,25 @@
 import Link from "next/link";
-import {
-  ArrowRight,
-  Bot,
-  Globe2,
-  Radio,
-  ShieldCheck,
-  Workflow,
-} from "lucide-react";
+import { ArrowRight, Bot, Globe2, ShieldCheck, Workflow } from "lucide-react";
 
 const pillars = [
   {
     title: "Agent catalog",
-    body: "Pre-trained commerce agents with clear A2A contracts, SLAs, and pricing—ready to deploy beside your stack.",
+    body: "Subscribe to managed commerce agents with clear A2A contracts, SLAs, and Stripe billing.",
     icon: Bot,
   },
   {
     title: "Cross-LLM handshakes",
-    body: "Your fleet advertises capabilities once; shopper assistants on other models discover and negotiate safely.",
+    body: "Advertise once. Shopper assistants on OpenAI and Anthropic discover and negotiate safely.",
     icon: Globe2,
   },
   {
-    title: "Brand-safe browsing",
-    body: "Sentinel agents review outbound messages, inventory claims, and promos before they reach customers.",
+    title: "Real-world tasks",
+    body: "Search live catalog inventory, reserve stock, review brand copy, and hand off checkout.",
     icon: ShieldCheck,
   },
   {
     title: "Live fabric",
-    body: "Trace multi-hop flows, see which providers drive traffic, and tune routing without redeploying storefronts.",
+    body: "Trace multi-hop A2A flows with hop-level evidence for every task your fleet runs.",
     icon: Workflow,
   },
 ];
@@ -36,36 +29,32 @@ export default function HomePage() {
     <div>
       <section className="mx-auto max-w-6xl px-4 pb-20 pt-16 sm:px-6 sm:pt-24">
         <div className="max-w-3xl">
-          <p className="inline-flex items-center gap-2 rounded-full border border-signal/25 bg-signal/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-signal-glow">
-            <Radio className="h-3.5 w-3.5" aria-hidden />
-            Agent-to-agent ready
+          <p className="text-sm font-semibold tracking-wide text-stripe-accent">
+            Agent-to-agent commerce
           </p>
-          <h1 className="mt-6 text-4xl font-semibold tracking-tight text-white sm:text-5xl lg:text-6xl">
-            Commerce agents that{" "}
-            <span className="bg-gradient-to-r from-signal to-pulse bg-clip-text text-transparent">
-              speak fluent A2A
-            </span>{" "}
-            across LLMs.
+          <h1 className="mt-4 text-4xl font-semibold tracking-tight text-stripe-navy sm:text-5xl lg:text-[3.5rem] lg:leading-[1.08]">
+            Fleet of agents for{" "}
+            <span className="text-stripe-accent">brand visibility</span> across
+            every assistant.
           </h1>
-          <p className="mt-6 text-lg leading-relaxed text-ink-300">
-            Nexus Fleet lets e-commerce teams order a coordinated fleet of agents.
-            They interoperate with shopper assistants on OpenAI, Anthropic,
-            Google, and more—so your brand shows up consistently in the new era
-            of agentic shopping.
+          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-stripe-ink">
+            Nexus Fleet lets e-commerce teams order interoperable agents that
+            speak a real A2A protocol, run catalog and inventory tasks, and
+            bill through Stripe subscriptions.
           </p>
           <div className="mt-10 flex flex-wrap gap-3">
             <Link
               href="/catalog"
-              className="inline-flex items-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-semibold text-ink-950 shadow-panel transition hover:bg-ink-50"
+              className="inline-flex items-center gap-2 rounded-full bg-stripe-accent px-5 py-3 text-sm font-semibold text-white shadow-soft transition hover:bg-stripe-accentDark"
             >
-              Browse agent catalog
+              Browse agents
               <ArrowRight className="h-4 w-4" aria-hidden />
             </Link>
             <Link
-              href="/dashboard"
-              className="inline-flex items-center gap-2 rounded-xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition hover:border-signal/40 hover:bg-white/10"
+              href="/playground"
+              className="inline-flex items-center gap-2 rounded-full border border-stripe-border bg-white px-5 py-3 text-sm font-semibold text-stripe-navy transition hover:border-stripe-accent/40"
             >
-              View live fleet
+              Open playground
             </Link>
           </div>
         </div>
@@ -74,15 +63,15 @@ export default function HomePage() {
           {pillars.map(({ title, body, icon: Icon }) => (
             <article
               key={title}
-              className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 shadow-panel backdrop-blur"
+              className="rounded-2xl border border-stripe-border bg-white p-5 shadow-soft"
             >
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-signal/20 to-pulse/20 text-signal">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-stripe-soft text-stripe-accent">
                 <Icon className="h-5 w-5" aria-hidden />
               </div>
-              <h2 className="mt-4 text-base font-semibold text-white">
+              <h2 className="mt-4 text-base font-semibold text-stripe-navy">
                 {title}
               </h2>
-              <p className="mt-2 text-sm leading-relaxed text-ink-400">
+              <p className="mt-2 text-sm leading-relaxed text-stripe-ink">
                 {body}
               </p>
             </article>
@@ -90,22 +79,23 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="border-y border-white/10 bg-white/[0.02]">
-        <div className="mx-auto flex max-w-6xl flex-col gap-10 px-4 py-16 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+      <section className="border-y border-stripe-border bg-white">
+        <div className="mx-auto flex max-w-6xl flex-col gap-8 px-4 py-14 sm:flex-row sm:items-center sm:justify-between sm:px-6">
           <div className="max-w-xl">
-            <h2 className="text-2xl font-semibold text-white sm:text-3xl">
-              Built for the handshake layer between merchants and assistants.
+            <h2 className="text-2xl font-semibold text-stripe-navy sm:text-3xl">
+              Designed for the handshake layer between merchants and
+              assistants.
             </h2>
-            <p className="mt-3 text-ink-400">
-              Standardize discovery, trust, inventory, and checkout handoffs
-              without forcing shoppers into a single chat surface.
+            <p className="mt-3 text-stripe-ink">
+              Standardized discovery, inventory truth, brand review, and
+              checkout handoffs—with Stripe for subscriptions.
             </p>
           </div>
           <Link
-            href="/catalog"
-            className="inline-flex shrink-0 items-center justify-center rounded-xl border border-signal/40 bg-signal/10 px-6 py-3 text-sm font-semibold text-signal-glow transition hover:bg-signal/20"
+            href="/checkout"
+            className="inline-flex shrink-0 items-center justify-center rounded-full bg-stripe-navy px-6 py-3 text-sm font-semibold text-white"
           >
-            Start an order
+            Start with Stripe Checkout
           </Link>
         </div>
       </section>

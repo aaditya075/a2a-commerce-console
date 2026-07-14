@@ -1,25 +1,26 @@
 import type { Metadata } from "next";
-import { DM_Sans, JetBrains_Mono } from "next/font/google";
+import { Plus_Jakarta_Sans, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import { SiteHeader } from "@/components/site-header";
 import { CartProvider } from "@/context/cart-context";
 
-const dmSans = DM_Sans({
+const sans = Plus_Jakarta_Sans({
   subsets: ["latin"],
-  variable: "--font-geist-sans",
+  variable: "--font-sans",
   display: "swap",
 });
 
-const jetbrains = JetBrains_Mono({
+const mono = IBM_Plex_Mono({
   subsets: ["latin"],
-  variable: "--font-geist-mono",
+  weight: ["400", "500"],
+  variable: "--font-mono",
   display: "swap",
 });
 
 export const metadata: Metadata = {
   title: "Nexus Fleet · Agent-to-Agent Commerce",
   description:
-    "Order a fleet of commerce agents that speak A2A across LLM ecosystems for consistent brand visibility.",
+    "Launch a fleet of commerce agents that speak A2A across LLM ecosystems—with Stripe billing and live task execution.",
 };
 
 export default function RootLayout({
@@ -28,20 +29,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${dmSans.variable} ${jetbrains.variable}`}>
+    <html lang="en" className={`${sans.variable} ${mono.variable}`}>
       <body className="font-sans">
         <CartProvider>
-          <div className="relative min-h-screen overflow-x-hidden">
-            <div
-              className="pointer-events-none fixed inset-0 -z-10 bg-radial-glow bg-[length:100%_60%] bg-top bg-no-repeat"
-              aria-hidden
-            />
-            <div
-              className="pointer-events-none fixed inset-0 -z-10 bg-grid-fade bg-[size:48px_48px] opacity-40 [mask-image:radial-gradient(ellipse_at_center,black,transparent_70%)]"
-              aria-hidden
-            />
+          <div className="relative min-h-screen overflow-x-hidden bg-stripe-glow bg-no-repeat">
             <SiteHeader />
             <main>{children}</main>
+            <footer className="border-t border-stripe-border bg-white/70">
+              <div className="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-8 text-sm text-stripe-muted sm:flex-row sm:items-center sm:justify-between sm:px-6">
+                <p>Nexus Fleet · A2A commerce console</p>
+                <p>Payments by Stripe · Agents over WebSocket A2A</p>
+              </div>
+            </footer>
           </div>
         </CartProvider>
       </body>

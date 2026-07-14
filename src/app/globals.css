@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 html {
@@ -11,9 +11,9 @@ html {
 }
 
 body {
-  @apply min-h-screen bg-ink-950 text-ink-100 antialiased;
+  @apply min-h-screen bg-stripe-soft text-stripe-navy antialiased;
 }
 
 ::selection {
-  @apply bg-signal/30 text-white;
+  @apply bg-stripe-accent/20 text-stripe-navy;
 }

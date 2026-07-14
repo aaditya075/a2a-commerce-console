@@ -88,6 +88,35 @@ function runMigrations(d: Database.Database) {
       foreign key (tenant_id) references tenants(id)
     );
 
+    create table if not exists orders (
+      id text primary key,
+      tenant_id text not null,
+      status text not null,
+      items_json text not null,
+      stripe_session_id text,
+      created_at text not null,
+      foreign key (tenant_id) references tenants(id)
+    );
+
+    create table if not exists catalog_products (
+      sku text primary key,
+      title text not null,
+      category text not null,
+      price_usd real not null,
+      stock integer not null,
+      tags text not null
+    );
+
+    create table if not exists inventory_reservations (
+      id text primary key,
+      sku text not null,
+      qty integer not null,
+      reservation_token text not null unique,
+      expires_at text not null,
+      created_at text not null,
+      foreign key (sku) references catalog_products(sku)
+    );
+
     create index if not exists idx_fleet_agents_tenant on fleet_agents(tenant_id);
     create index if not exists idx_connections_tenant on connections(tenant_id);
     create index if not exists idx_traces_tenant on traces(tenant_id, created_at desc);

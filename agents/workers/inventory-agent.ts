@@ -1,6 +1,9 @@
-import crypto from "node:crypto";
+import { agentReserve } from "../catalog-store";
 
-export async function handleInventoryIntent(input: { intent: string; payload: any }) {
+export async function handleInventoryIntent(input: {
+  intent: string;
+  payload: any;
+}) {
   if (input.intent !== "inventory.reserve") {
     return { error: "unsupported_intent", intent: input.intent };
   }
@@ -9,12 +12,5 @@ export async function handleInventoryIntent(input: { intent: string; payload: an
   const qty = Number(input.payload?.qty ?? 1);
   const ttlMinutes = Number(input.payload?.ttlMinutes ?? 15);
 
-  return {
-    ok: true,
-    sku,
-    qty,
-    reservationToken: `rsv_${crypto.randomUUID()}`,
-    expiresAt: new Date(Date.now() + ttlMinutes * 60 * 1000).toISOString(),
-  };
+  return agentReserve(sku, qty, ttlMinutes);
 }
-

@@ -2,12 +2,12 @@ import type { LlmProvider } from "@/lib/types";
 import { providerLabels } from "@/lib/mock-data";
 
 const styles: Record<LlmProvider, string> = {
-  openai: "border-emerald-400/30 bg-emerald-400/10 text-emerald-200",
-  anthropic: "border-orange-400/30 bg-orange-400/10 text-orange-100",
-  google: "border-sky-400/30 bg-sky-400/10 text-sky-100",
-  mistral: "border-violet-400/30 bg-violet-400/10 text-violet-100",
-  cohere: "border-amber-400/30 bg-amber-400/10 text-amber-100",
-  meta: "border-blue-400/30 bg-blue-400/10 text-blue-100",
+  openai: "border-emerald-200 bg-emerald-50 text-emerald-800",
+  anthropic: "border-orange-200 bg-orange-50 text-orange-800",
+  google: "border-sky-200 bg-sky-50 text-sky-800",
+  mistral: "border-violet-200 bg-violet-50 text-violet-800",
+  cohere: "border-amber-200 bg-amber-50 text-amber-800",
+  meta: "border-blue-200 bg-blue-50 text-blue-800",
 };
 
 export function ProviderBadges({
